@@ -1,0 +1,135 @@
+{
+  "experiment": "modular-addition-p113-seed999-data0-biasfree",
+  "experiment_date": "2026-10-12",
+  "model_seed": 999,
+  "data_seed": 0,
+  "updates": 40000,
+  "selected_step": 39800,
+  "selection_rule": "minimum development NLL at steps 0,100,...,40000; earliest exact tie",
+  "architecture": {
+    "modulus": 113,
+    "blocks": 1,
+    "width": 128,
+    "heads": 4,
+    "head_width": 32,
+    "mlp_width": 512,
+    "activation": "relu",
+    "biases": false,
+    "normalization": null,
+    "positions": "learned",
+    "tied_embeddings": false
+  },
+  "parameter_count": 226048,
+  "initialization": "PyTorch Embedding/Linear defaults; positional normal std=0.02",
+  "optimizer": {
+    "name": "AdamW",
+    "defaults": {
+      "lr": 0.001,
+      "betas": [
+        0.9,
+        0.98
+      ],
+      "eps": 1e-08,
+      "weight_decay": 1.0,
+      "amsgrad": false,
+      "maximize": false,
+      "foreach": null,
+      "capturable": false,
+      "differentiable": false,
+      "fused": null,
+      "decoupled_weight_decay": true
+    }
+  },
+  "batch_size": 3830,
+  "forward_dtype": "float32",
+  "loss_dtype": "float64",
+  "lr_schedule": "constant",
+  "gradient_clipping": null,
+  "software": {
+    "python": "3.12.13",
+    "numpy": "2.5.4",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0"
+  },
+  "split_sizes": {
+    "train": 3830,
+    "dev": 4469,
+    "final": 4470
+  },
+  "weights_format": "plain CPU float32 state_dict; load with weights_only=True",
+  "results": {
+    "train": {
+      "count": 3830,
+      "accuracy": 1.0,
+      "nll": 1.0254254212013251e-07
+    },
+    "development": {
+      "all": {
+        "count": 4469,
+        "correct": 4469,
+        "accuracy": 1.0,
+        "nll": 4.1027289864266794e-07,
+        "mean_correct_margin": 16.8829274479509,
+        "minimum_correct_margin": 9.827905654907227
+      },
+      "reverse_seen_in_train": {
+        "count": 1346,
+        "correct": 1346,
+        "accuracy": 1.0,
+        "nll": 1.1609598457195585e-07,
+        "mean_correct_margin": 17.353374383424757,
+        "minimum_correct_margin": 14.606828689575195
+      },
+      "neither_order_in_train": {
+        "count": 3123,
+        "correct": 3123,
+        "accuracy": 1.0,
+        "nll": 5.370619240474642e-07,
+        "mean_correct_margin": 16.68016677707424,
+        "minimum_correct_margin": 9.827905654907227
+      },
+      "diagonal": {
+        "count": 38,
+        "correct": 38,
+        "accuracy": 1.0,
+        "nll": 1.0168596730487864e-06,
+        "mean_correct_margin": 15.597628994991904,
+        "minimum_correct_margin": 12.145950317382812
+      },
+      "off_diagonal_neither_order_in_train": {
+        "count": 3085,
+        "correct": 3085,
+        "accuracy": 1.0,
+        "nll": 5.311519355670588e-07,
+        "mean_correct_margin": 16.693501116043166,
+        "minimum_correct_margin": 9.827905654907227
+      }
+    }
+  },
+  "first_logged_perfect_training_step": 1100,
+  "first_logged_perfect_development_step": 25100,
+  "final_set_model_evaluation": "not performed",
+  "source_weight_artifact_sha256": {
+    "selected": "c8d29c95022fe96429f0b244052eac275e6894bbae452bad3e34444942e23b9c",
+    "initial": "08002bfba6c9c2519b46ef9b6e599b16dc16336dafdc7a77c4851c73ef64b65d"
+  },
+  "files_sha256": {
+    "model.py": "204d629693b1e7f6c78df8c1b64f118d73ec8f8cd0cd45e3b5ccd86081d4fc2d",
+    "data.py": "6ee86922718e0deffc61c60a09f2778e6821f436c58150cdc57e5ca83fb1a347",
+    "train.py": "bd06e3883a4b1e6124120474b309556ddc6034b6eba8ae2ae718ea9b882e6113",
+    "results/metrics.csv": "e04b4d85797eea0a8a265636ffca42ee8c64e7c4cd05e948d0a83e535128e011",
+    "results/training-trajectory.png": "91bad0c8f0d240adbb137975df5416bc2114c9de3d1fc889a5218d7d9a93ffb7",
+    "results/selected.pt": "103efbbf696e566baf0a6792b1e326021594cd7183c74a36d93cd883fd7b7153",
+    "results/initial.pt": "1db3b8bb5df284dfc9acb9fa5fe61ba0bb856e9e616a0a4eeaa6fa82022cc35b",
+    "results/split.npz": "3d8c1c4fa1f19c904ce39b90c274207958837b3a91488ac09ae0a90fd5d4ef7d",
+    "results/development_predictions.csv": "ecfad1e5a2f1a6c297dd33c7a41dc01b481acb76fa9e2c6bc920dd375ade80dc",
+    "verify.py": "cce6ac05cec2d8d103326924b20d76deaba5f5ce488fe11bf28decac1f982428"
+  },
+  "verification_tolerances": {
+    "nll_relative": 1e-05,
+    "nll_absolute": 1e-10,
+    "margin_relative": 1e-05,
+    "margin_absolute": 0.0001
+  },
+  "csv_format": "LF line endings; original recorded values retained"
+}
