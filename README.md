@@ -1,4 +1,4 @@
-# Modular-addition grokking
+# Grokking and Mechanistic Interpretability
 
 ## Aim
 
@@ -11,6 +11,8 @@ Reproduce and adapt the small-transformer modular-addition experiment in [*Progr
 - Observed **behavioral grokking**: training accuracy first reached 100% at logged update **1,100**, while development accuracy first reached 100% at logged update **25,100**.
 - The selected checkpoint at update **39,800** achieves **100% development accuracy (4,469/4,469)** with mean negative log-likelihood (NLL) of **4.10 × 10⁻⁷ nats**.
 - The selected checkpoint also achieves **100% accuracy on 3,123/3,123 development pairs for which neither `(a, b)` nor `(b, a)` appeared in training**. A reverse-pair lookup baseline achieves 30.54% overall development accuracy.
+
+The checkpoint was selected by minimum development NLL across the 401 evaluations at updates 0, 100, …, 40,000, with the earliest checkpoint chosen on an exact tie. The reported scores are development-set results after selection; the reserved final split remains unevaluated for an independent assessment after the analysis choices are fixed.
 
 ![Training and development trajectory](results/training-trajectory.png)
 
