@@ -2,30 +2,35 @@
 
 ## Aim
 
-Reproduce and adapt the small-transformer modular-addition experiment in [*Progress Measures for Grokking via Mechanistic Interpretability*](https://arxiv.org/html/2301.05217v3). Study delayed generalization and investigate whether the trained model implements the paper's proposed Fourier-based computation.
+Study how a small transformer learns modular addition and whether it implements
+the Fourier computation described in [*Progress Measures for Grokking via
+Mechanistic Interpretability*](https://arxiv.org/html/2301.05217v3).
 
-## Current results
+## Current progress
 
-- Implemented a one-block, bias-free PyTorch Transformer for addition modulo 113.
-- Completed one run of **40,000 full-batch training updates** (model seed `999`, data seed `0`).
-- Observed **behavioral grokking**: training accuracy first reached 100% at logged update **1,100**, while development accuracy first reached 100% at logged update **25,100**.
-- The selected checkpoint at update **39,800** achieves **100% development accuracy (4,469/4,469)** with mean negative log-likelihood (NLL) of **4.10 × 10⁻⁷ nats**.
-- The selected checkpoint also achieves **100% accuracy on 3,123/3,123 development pairs for which neither `(a, b)` nor `(b, a)` appeared in training**. A reverse-pair lookup baseline achieves 30.54% overall development accuracy.
+A model has been trained that exhibits grokking: it fits the training examples
+early, then generalizes to unseen pairs much later.
 
-The checkpoint was selected by minimum development NLL across the 401 evaluations at updates 0, 100, …, 40,000, with the earliest checkpoint chosen on an exact tie. The reported scores are development-set results after selection; the reserved final split remains unevaluated for an independent assessment after the analysis choices are fixed.
+![Training and validation accuracy and loss during grokking](results/training-trajectory.png)
 
-![Training and development trajectory](results/training-trajectory.png)
+Analysis of its embeddings shows that training concentrates their Fourier
+structure into a few frequencies.
 
-[Core evidence and verification](results/README.md) · [Detailed findings](docs/findings.md)
+![Embedding frequency distributions before and after training](embeddings/fourier-norms.png)
 
-These results establish delayed generalization in one bias-free run. **The model's internal computation has not yet been verified.**
+The model's internal addition mechanism remains unverified.
+
+See the [grokking findings](docs/grokking.md) and
+[embedding analysis](embeddings/README.md) for the methods, plots, and results.
+The [saved evidence and verification instructions](results/README.md) support
+reproducing the training results.
+
+The checkpoint was selected by minimum validation loss over the training run.
+The final test split remains reserved until the analysis choices are fixed.
 
 ## Remaining work
 
-- **Spectral analysis:** Identify Fourier structure in the token embeddings and effective MLP readout; determine whether a sparse set of frequencies dominates.
-- **Mechanistic analysis:** Test whether output-linked activation directions encode sum-dependent sine and cosine features.
-- **Causal interventions:** Remove and retain candidate hidden subspaces during the forward pass, with rank-matched controls, to test their contribution to predictions.
-- **Final evaluation:** Freeze the analysis procedure and evaluate the reserved final split.
-- **Robustness:** Repeat the experiment across additional model seeds to assess whether the findings persist across training runs.
-
-The objective is to test whether this model implements the Fourier multiplication algorithm—not to assume that behavioral grokking implies that it does.
+Analyze the readout and activations to test how the model combines operand
+representations, then use controlled interventions to test their contribution
+to predictions. Complete the reserved final evaluation and repeat the study
+across additional training seeds.
