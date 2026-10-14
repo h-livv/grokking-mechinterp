@@ -174,14 +174,19 @@ not require the full optimizer/checkpoint archive.
 - **Development-based selection:** development examples do not enter optimizer
   updates, but their NLL selects the checkpoint. These scores are not an
   independent final-test estimate.
-- **Final split reserved:** final-set model evaluation has not been performed.
-- **Mechanism untested:** no Fourier spectra, activation fits, or causal
-  interventions have established Fourier multiplication in this model.
+- **Final metrics deferred:** final accuracy, loss, and intervention metrics
+  have not been reported. Full-grid [periodicity diagnostics](../4.1-periodicity/README.md)
+  include the reserved final inputs; the partition is no longer untouched.
+- **Mechanism untested:** Fourier structure has been characterized descriptively.
+  Activation fits and causal interventions have not established Fourier
+  multiplication in this model.
 - **Cause of the transition unresolved:** this run does not isolate the effect
   of weight decay or other optimization choices.
 
-The next analysis will examine residue-axis Fourier structure in embeddings
-and the effective MLP readout, followed by controlled activation interventions.
+The [Section 4.1 analyses](../4.1-periodicity/README.md) now characterize periodicity
+in embeddings, the effective readout, attention patterns, neuron 0, and logits. The next analysis will
+test readout composition and sum-dependent activation signals, followed
+by controlled interventions.
 The matrices are directly accessible in `model.py`:
 
 ```python

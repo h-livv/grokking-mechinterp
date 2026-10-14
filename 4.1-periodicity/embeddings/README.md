@@ -15,27 +15,32 @@ Let $E\in\mathbb R^{113\times128}$ be the number-token embedding table.
 Each row corresponds to a residue $a$; each column is an embedding coordinate.
 The `=` token and positional embeddings are excluded.
 
-Fourier-transform along the residue axis, then take the norm over coordinates:
+Project the residue axis onto real orthonormal cosine and sine vectors:
 
 $$
-\widehat E_{k,j}=\frac{1}{\sqrt{113}}\sum_{a=0}^{112}
-E_{a,j}e^{-2\pi i ka/113},\qquad
-n_k=\sqrt{\sum_j|\widehat E_{k,j}|^2}.
+b_{k,c}(a)=\sqrt{\frac{2}{113}}\cos\left(\frac{2\pi ka}{113}\right),\qquad
+b_{k,s}(a)=\sqrt{\frac{2}{113}}\sin\left(\frac{2\pi ka}{113}\right).
 $$
 
-We measure variation around the mean embedding
-$\overline E=113^{-1}\sum_a E_a$, using the nonzero frequencies.
-
-Since $E$ is real, frequencies $k$ and $113-k$ are conjugates and have equal
-norms. We plot $k=1,\ldots,56$ and count both members when computing energy:
+For $k=1,\ldots,56$, compute separate component norms over embedding coordinates:
 
 $$
-e_k=2n_k^2,\qquad
-\|E\|_F^2=n_0^2+\sum_{k=1}^{56}e_k,\qquad
-\sum_{k=1}^{56}e_k=\sum_a\|E_a-\overline E\|_2^2.
+n_{k,c}=\|b_{k,c}^{\top}E\|_2,\qquad
+n_{k,s}=\|b_{k,s}^{\top}E\|_2,\qquad
+e_k=n_{k,c}^2+n_{k,s}^2.
 $$
 
-Each frequency's reported share is $e_k/\sum_{\ell=1}^{56}e_\ell$.
+Blue bars show sine norms; red-orange bars show cosine norms, as in Figure 3.
+The basis normalization gives
+
+$$
+\sum_{k=1}^{56}e_k=\sum_a\|E_a-\overline E\|_2^2,\qquad
+\overline E=\frac{1}{113}\sum_a E_a.
+$$
+
+Each reported energy share is $e_k/\sum_{\ell=1}^{56}e_\ell$. Separating sine and
+cosine changes the displayed norms, but preserves the combined energy fractions
+of the previous complex-FFT calculation.
 
 ## Results
 
@@ -69,15 +74,15 @@ readout analysis, activation analysis, and interventions.
 From the repository root, with the existing requirements installed:
 
 ```bash
-python embeddings/analyze.py
+python 4.1-periodicity/embeddings/analyze.py
 ```
 
-[analyze.py](analyze.py) reads the public [initial](../results/initial.pt) and
-[selected](../results/selected.pt) weights and verifies their hashes against
-the [manifest](../results/manifest.json). It saves the two plots above and
-[spectrum.csv](spectrum.csv), containing norms and energy fractions for both
+[analyze.py](analyze.py) reads the public [initial](../../results/initial.pt) and
+[selected](../../results/selected.pt) weights and verifies their hashes against
+the [manifest](../../results/manifest.json). It saves the two plots above and
+[spectrum.csv](spectrum.csv), containing separate sine/cosine norms and energy fractions for both
 checkpoints.
 
-Checks cover Fourier reconstruction, conjugate symmetry, and energy conservation.
-The calculation was independently verified against a real sine/cosine basis
+Checks cover basis orthonormality, reconstruction, and energy conservation.
+Combined frequency energies were independently checked against a complex FFT
 and known-frequency signals. No training or final-split evaluation is performed.

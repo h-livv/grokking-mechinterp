@@ -43,3 +43,7 @@ The full optimizer/checkpoint archive is unnecessary to verify the current
 behavioral claims and is excluded from this compact evidence set. Individual
 NLL checks use relative tolerance 1e-5 and absolute tolerance 1e-10 to allow
 small float32-forward differences across execution environments.
+
+The trajectory uses the paper's blue training / red validation colours.
+Regenerate it from the recorded CSV with `python results/plot.py`;
+[plot.py](plot.py) also refreshes the figure checksum in the manifest.

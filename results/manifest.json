@@ -118,12 +118,13 @@
     "data.py": "6ee86922718e0deffc61c60a09f2778e6821f436c58150cdc57e5ca83fb1a347",
     "train.py": "bd06e3883a4b1e6124120474b309556ddc6034b6eba8ae2ae718ea9b882e6113",
     "results/metrics.csv": "e04b4d85797eea0a8a265636ffca42ee8c64e7c4cd05e948d0a83e535128e011",
-    "results/training-trajectory.png": "91bad0c8f0d240adbb137975df5416bc2114c9de3d1fc889a5218d7d9a93ffb7",
+    "results/training-trajectory.png": "4093b21cc41b0bd4f03f036e18e77f19f88902b470448dde6ff5a3aba42cb205",
     "results/selected.pt": "103efbbf696e566baf0a6792b1e326021594cd7183c74a36d93cd883fd7b7153",
     "results/initial.pt": "1db3b8bb5df284dfc9acb9fa5fe61ba0bb856e9e616a0a4eeaa6fa82022cc35b",
     "results/split.npz": "3d8c1c4fa1f19c904ce39b90c274207958837b3a91488ac09ae0a90fd5d4ef7d",
     "results/development_predictions.csv": "ecfad1e5a2f1a6c297dd33c7a41dc01b481acb76fa9e2c6bc920dd375ade80dc",
-    "verify.py": "cce6ac05cec2d8d103326924b20d76deaba5f5ce488fe11bf28decac1f982428"
+    "verify.py": "cce6ac05cec2d8d103326924b20d76deaba5f5ce488fe11bf28decac1f982428",
+    "results/plot.py": "f5cc790992e943cf67724daae449139376b686101a51c8818d257e745149a76e"
   },
   "verification_tolerances": {
     "nll_relative": 1e-05,
