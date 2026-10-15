@@ -1,0 +1,16 @@
+{
+  "checkpoint": "results/selected.pt",
+  "selected_step": 39800,
+  "checkpoint_sha256": "103efbbf696e566baf0a6792b1e326021594cd7183c74a36d93cd883fd7b7153",
+  "rule": "smallest paired-frequency set covering >=90% nonconstant G energy; cap 8",
+  "frequencies": [
+    19,
+    20,
+    21,
+    31,
+    49
+  ],
+  "development_fit_seed": 0,
+  "discovery_pairs": 2234,
+  "fit_validation_pairs": 2235
+}

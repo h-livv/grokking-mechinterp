@@ -1,0 +1,9 @@
+{
+  "selected_real_dimensions": 10,
+  "numerical_rank": 113,
+  "numerical_rank_tolerance": 2.3165422247368744e-12,
+  "selected_frequency_energy_fraction": 0.996413030444268,
+  "fourier_relative_frobenius_error": 0.05990020132442925,
+  "svd_relative_frobenius_error": 0.002588739160040364,
+  "svd_retained_energy_fraction": 0.9999932984295614
+}

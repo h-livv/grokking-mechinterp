@@ -177,16 +177,18 @@ not require the full optimizer/checkpoint archive.
 - **Final metrics deferred:** final accuracy, loss, and intervention metrics
   have not been reported. Full-grid [periodicity diagnostics](../4.1-periodicity/README.md)
   include the reserved final inputs; the partition is no longer untouched.
-- **Mechanism untested:** Fourier structure has been characterized descriptively.
-  Activation fits and causal interventions have not established Fourier
-  multiplication in this model.
+- **Mechanism partially characterized:** [Section 4.2](../4.2-weights/README.md)
+  connects readout weights to sum-dependent signals and a compact logit
+  approximation. Some frequency fits are weaker than the reference account;
+  causal intervention tests remain outstanding.
 - **Cause of the transition unresolved:** this run does not isolate the effect
   of weight decay or other optimization choices.
 
 The [Section 4.1 analyses](../4.1-periodicity/README.md) now characterize periodicity
-in embeddings, the effective readout, attention patterns, neuron 0, and logits. The next analysis will
-test readout composition and sum-dependent activation signals, followed
-by controlled interventions.
+in embeddings, the effective readout, attention patterns, neuron 0, and logits.
+The [Section 4.2 analyses](../4.2-weights/README.md) now test readout composition,
+sum-dependent signals, and logit approximation. Individual-component analysis
+and controlled interventions remain next.
 The matrices are directly accessible in `model.py`:
 
 ```python

@@ -1,0 +1,7 @@
+{
+  "reconstruction_max_absolute_error": 3.405399963440914e-05,
+  "reconstruction_relative_frobenius_error": 1.7586667964474308e-07,
+  "full_grid_raw_logit_r2": 0.9690453642990339,
+  "validation_raw_logit_r2": 0.968309758096999,
+  "final_accuracy_or_loss_evaluated": false
+}

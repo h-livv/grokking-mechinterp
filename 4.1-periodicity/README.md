@@ -56,7 +56,8 @@ energies with an independent complex FFT and known sum/difference signals.
 All three analyses in Section 4.1 are implemented: embedding spectra, attention
 and neuron input maps, and the two-dimensional logit spectrum with its five
 2x2 blocks. The readout spectrum completes the companion panel in Figure 3;
-its mechanistic interpretation belongs to Section 4.2 and remains untested.
+readout composition and sum-feature tests are now in [Section 4.2](../4.2-weights/README.md).
+Causal intervention tests remain future work.
 
 Plots use the paper's blue sine / red-orange cosine bars, white-to-blue
 attention and activation maps, and a zero-centred red-white-blue Fourier scale.

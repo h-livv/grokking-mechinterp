@@ -18,12 +18,14 @@ structure in the embeddings, readout, attention, neuron 0, and logits.
 
 ![Embedding Fourier spectra before and after training](4.1-periodicity/embeddings/fourier-norms.png)
 
-The addition mechanism remains unverified. [Saved evidence and verification](results/README.md)
-are available. The checkpoint was selected by minimum validation loss; full-grid
+The [Section 4.2 analyses](4.2-weights/README.md) connect readout weights to
+sum-dependent activation signals and a compact approximation of the logits.
+The fits vary by frequency; a complete causal account remains unverified.
+[Saved evidence and verification](results/README.md) are available. The checkpoint was selected by minimum validation loss; full-grid
 diagnostics include final inputs, but final accuracy and loss remain unreported.
 
 ## Remaining work
 
-Test readout composition and sum-dependent activation signals, validate their
-role through controlled interventions, and report final-split results. Repeat
-across training seeds to assess robustness.
+Examine individual heads and neurons, test the proposed computation through
+controlled interventions, and report final-split results. Repeat across training
+seeds to assess robustness.
