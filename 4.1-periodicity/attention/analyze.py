@@ -1,7 +1,7 @@
-"""Plot attention from '=' to a for all four heads, as in Section 4.1.
+"""Attention periodicity: observe all heads, calculate spectra, then plot/save.
 
 Run: python 4.1-periodicity/attention/analyze.py
-Outputs maps, real Fourier coefficients, and one summary row per head.
+Analysis is separate from display; plotting does not select dominant frequencies.
 """
 
 import csv
@@ -15,47 +15,70 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
-from common import collect_grid, draw_map, fourier2d, load_model, paper_style
+from common import collect_grid, draw_map, fourier2d, frequency_shares, load_model, paper_style
 
 
-def main():
-    """Compare the input maps and their frequency content without selecting heads."""
-    paper_style()
+def analyze():
+    """Return attention maps [a,b,head], real Fourier coefficients, and head summaries.
+
+    Each summary measures energy in cells where either operand has frequency k.
+    These are descriptive energy shares, not accuracy or causal-effect scores.
+    """
     model, inputs = load_model()
+    # Measure softmax weights from = to a, not pre-softmax scores or head outputs.
     patterns, _, _ = collect_grid(model, inputs)
-    coefficients = fourier2d(patterns)
-    np.savez_compressed(HERE / "attention.npz", patterns=patterns, coefficients=coefficients)
-    for filename, fourier in (("attention-patterns.png", False),
-                              ("attention-frequencies.png", True)):
+    coefficients = fourier2d(patterns)  # Transform both operand axes while preserving the four heads.
+    summaries = []
+    for head in range(4):
+        shares = frequency_shares(coefficients[:, :, head])
+        best = int(np.argmax(shares))
+        summaries.append((head, best + 1, shares[best]))
+    return patterns, coefficients, summaries
+
+
+def plot_results(patterns, coefficients):
+    """Save both four-head figures; hide the mean only in a display copy."""
+    paper_style()
+    for filename, fourier in (
+        ("attention-patterns.png", False), ("attention-frequencies.png", True),
+    ):
         fig, axes = plt.subplots(2, 2, figsize=(10, 9))
         for head, ax in enumerate(axes.flat):
             values = np.abs(coefficients[:, :, head]) if fourier else patterns[:, :, head]
             values = values.copy()
             if fourier:
-                values[0, 0] = 0  # Hide the input-independent mean in this plot.
+                # Hide the mean only in the plotting copy; saved signed coefficients retain
+                # it.
+                values[0, 0] = 0
             image = draw_map(ax, values, f"Head {head}: '=' to a", fourier)
             if not fourier:
-                image.set_clim(0, 1)  # Shared scale for all probability maps.
-            fig.colorbar(image, ax=ax, label="Coefficient magnitude" if fourier else "Attention weight")
+                image.set_clim(0, 1)
+            fig.colorbar(
+                image, ax=ax, label="Coefficient magnitude" if fourier else "Attention weight",
+            )
         fig.tight_layout()
         fig.savefig(HERE / filename, dpi=180)
         plt.close(fig)
 
+
+def save_results(patterns, coefficients, summaries):
+    """Preserve full signed coefficients, raw maps, and the original CSV format."""
+    np.savez_compressed(
+        HERE / "attention.npz", patterns=patterns, coefficients=coefficients,
+    )
     with (HERE / "summary.csv").open("w", newline="") as file:
         writer = csv.writer(file, lineterminator="\n")
         writer.writerow(["head", "dominant_frequency", "fraction_variation_with_frequency"])
-        for head in range(4):
-            energy = coefficients[:, :, head]**2
-            energy[0, 0] = 0
-            # Energy in cells where either operand has this frequency.
-            shares = []
-            for k in range(1, (len(energy) + 1) // 2):
-                pair = slice(2 * k - 1, 2 * k + 1)
-                amount = energy[pair, :].sum() + energy[:, pair].sum() - energy[pair, pair].sum()
-                shares.append(amount / energy.sum())
-            best = int(np.argmax(shares))
-            writer.writerow([head, best + 1, shares[best]])
-            print(f"Head {head}: frequency {best + 1}, {100 * shares[best]:.2f}% of variation")
+        writer.writerows(summaries)
+    for head, frequency, share in summaries:
+        print(f"Head {head}: frequency {frequency}, {100 * share:.2f}% of variation")
+
+
+def main():
+    """Measure the attention structure before producing its plots and data files."""
+    patterns, coefficients, summaries = analyze()
+    plot_results(patterns, coefficients)
+    save_results(patterns, coefficients, summaries)
 
 
 if __name__ == "__main__":
