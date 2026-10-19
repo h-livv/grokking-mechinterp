@@ -14,6 +14,7 @@ and test a compact approximation of the model's answer scores.
 The evidence supports a substantial Fourier sum computation, but this checkpoint
 does not match every strength-of-fit claim in the reference run. Causal use of
 the identified components remains to be tested in Section 4.4.
+Individual neurons and attention heads are examined in [Section 4.3](../4.3-neurons/README.md).
 
 ## Run
 

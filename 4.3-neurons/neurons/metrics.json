@@ -1,0 +1,9 @@
+{
+  "neurons": 512,
+  "discovery_r2_above_0_85": 332,
+  "validation_r2_above_0_85": 307,
+  "eligible_and_validation_above_0_85": 299,
+  "eligible_matching_output_frequency": 332,
+  "threshold": 0.85,
+  "selection_split": "discovery"
+}

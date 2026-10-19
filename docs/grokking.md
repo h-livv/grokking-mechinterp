@@ -179,16 +179,19 @@ not require the full optimizer/checkpoint archive.
   include the reserved final inputs; the partition is no longer untouched.
 - **Mechanism partially characterized:** [Section 4.2](../4.2-weights/README.md)
   connects readout weights to sum-dependent signals and a compact logit
-  approximation. Some frequency fits are weaker than the reference account;
-  causal intervention tests remain outstanding.
+  approximation. [Section 4.3](../4.3-neurons/README.md) finds aligned neuron
+  clusters but mixed-frequency head outputs. Some fits are weaker than the
+  reference account; causal intervention tests remain outstanding.
 - **Cause of the transition unresolved:** this run does not isolate the effect
   of weight decay or other optimization choices.
 
 The [Section 4.1 analyses](../4.1-periodicity/README.md) now characterize periodicity
 in embeddings, the effective readout, attention patterns, neuron 0, and logits.
 The [Section 4.2 analyses](../4.2-weights/README.md) now test readout composition,
-sum-dependent signals, and logit approximation. Individual-component analysis
-and controlled interventions remain next.
+sum-dependent signals, and logit approximation. The
+[Section 4.3 analyses](../4.3-neurons/README.md) examine individual neurons,
+frequency-localized readout clusters, and attention-head approximations.
+Controlled interventions in Section 4.4 remain next.
 The matrices are directly accessible in `model.py`:
 
 ```python
