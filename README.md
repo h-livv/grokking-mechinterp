@@ -11,6 +11,8 @@ Interpretability*](https://arxiv.org/html/2301.05217v3).
 The trained model exhibits grokking: it fits training examples early and
 generalizes to unseen pairs much later. See the [grokking findings](docs/grokking.md).
 
+![Training trajectory](results/training-trajectory.png)
+
 The [Section 4.1 analyses](4.1-periodicity/README.md) are complete, showing Fourier
 structure in the embeddings, readout, attention, neuron 0, and logits.
 
@@ -21,6 +23,7 @@ The fits vary by frequency.
 The [Section 4.3 analyses](4.3-neurons/README.md) examine individual neurons and
 attention heads. Neuron clusters align with their output frequencies; head
 computations mix frequencies more than the reference account suggests.
+
 [Saved evidence and verification](results/README.md) are available. The checkpoint was selected by minimum validation loss; full-grid
 diagnostics include final inputs, but final accuracy and loss remain unreported.
 
